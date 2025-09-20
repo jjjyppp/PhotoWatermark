@@ -11,7 +11,6 @@ import argparse
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
 from PIL.ExifTags import TAGS
-import exifread
 from datetime import datetime
 
 
@@ -22,9 +21,15 @@ class ImageWatermarker:
     def get_exif_data(self, image_path):
         """读取图片的EXIF信息"""
         try:
-            with open(image_path, 'rb') as f:
-                tags = exifread.process_file(f, details=False)
-                return tags
+            with Image.open(image_path) as img:
+                exif_data = img._getexif()
+                if exif_data is not None:
+                    exif = {}
+                    for tag_id, value in exif_data.items():
+                        tag = TAGS.get(tag_id, tag_id)
+                        exif[tag] = value
+                    return exif
+                return None
         except Exception as e:
             print(f"读取EXIF信息失败 {image_path}: {e}")
             return None
@@ -36,10 +41,9 @@ class ImageWatermarker:
             
         # 尝试不同的时间字段
         time_fields = [
-            'EXIF DateTimeOriginal',
-            'EXIF DateTime',
-            'EXIF DateTimeDigitized',
-            'Image DateTime'
+            'DateTimeOriginal',
+            'DateTime',
+            'DateTimeDigitized'
         ]
         
         for field in time_fields:
@@ -63,10 +67,9 @@ class ImageWatermarker:
             
         # 打印相关的时间字段
         time_fields = [
-            'EXIF DateTimeOriginal',
-            'EXIF DateTime', 
-            'EXIF DateTimeDigitized',
-            'Image DateTime'
+            'DateTimeOriginal',
+            'DateTime', 
+            'DateTimeDigitized'
         ]
         
         for field in time_fields:
@@ -75,11 +78,11 @@ class ImageWatermarker:
         
         # 打印其他有用的信息
         info_fields = [
-            'Image Make',
-            'Image Model',
-            'EXIF FNumber',
-            'EXIF ExposureTime',
-            'EXIF ISOSpeedRatings'
+            'Make',
+            'Model',
+            'FNumber',
+            'ExposureTime',
+            'ISOSpeedRatings'
         ]
         
         for field in info_fields:
