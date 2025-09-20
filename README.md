@@ -33,7 +33,7 @@ python image_watermark.py <图片目录路径> [选项]
 #### 可用选项：
 
 - `--font-size SIZE`: 设置字体大小（默认：24）
-- `--color COLOR`: 设置水印颜色（可选：white, black, red, blue，默认：white）
+- `--color COLOR`: 设置水印颜色（可选：white, black, red, blue 或十六进制颜色如 #FF0000，默认：white）
 - `--position POSITION`: 设置水印位置（可选：top-left, top-right, bottom-left, bottom-right, center，默认：bottom-right）
 
 ### 使用示例
@@ -48,12 +48,17 @@ python image_watermark.py <图片目录路径> [选项]
    python image_watermark.py ./photos --font-size 32 --color red
    ```
 
-3. **设置水印位置为左上角**：
+3. **使用十六进制颜色**：
+   ```bash
+   python image_watermark.py ./photos --color "#FF5733"
+   ```
+
+4. **设置水印位置为左上角**：
    ```bash
    python image_watermark.py ./photos --position top-left --color black
    ```
 
-4. **居中显示水印**：
+5. **居中显示水印**：
    ```bash
    python image_watermark.py ./photos --position center --font-size 28
    ```
@@ -91,6 +96,6 @@ python image_watermark.py <图片目录路径> [选项]
 ## 技术实现
 
 - 使用 `Pillow` 库进行图片处理和水印绘制
-- 使用 `ExifRead` 库读取EXIF信息
+- 使用 `Pillow` 内置EXIF功能读取图片元数据
 - 支持多种时间字段的自动识别
 - 智能字体回退机制
