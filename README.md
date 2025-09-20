@@ -40,27 +40,27 @@ python image_watermark.py <图片目录路径> [选项]
 
 1. **基本使用**：
    ```bash
-   python image_watermark.py ./photos
+   python image_watermark.py photo
    ```
 
 2. **自定义字体大小和颜色**：
    ```bash
-   python image_watermark.py ./photos --font-size 32 --color red
+   python image_watermark.py photo --font-size 32 --color red
    ```
 
 3. **使用十六进制颜色**：
    ```bash
-   python image_watermark.py ./photos --color "#FF5733"
+   python image_watermark.py photo --color "#FF5733"
    ```
 
 4. **设置水印位置为左上角**：
    ```bash
-   python image_watermark.py ./photos --position top-left --color black
+   python image_watermark.py photo --position top-left --color black
    ```
 
 5. **居中显示水印**：
    ```bash
-   python image_watermark.py ./photos --position center --font-size 28
+   python image_watermark.py photo --position center --font-size 28
    ```
 
 ## 输出说明
